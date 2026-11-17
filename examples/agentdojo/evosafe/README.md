@@ -27,3 +27,32 @@ For a no-defense comparison use `hermit eval --config ... --adapter none` on the
 same frozen test IDs. The shared AgentDyn `report.py` consumes the same per-case
 metric contract; it is also usable for AgentDojo run records. Failed executions
 are errors, not successful defenses. No training or held-out result is claimed.
+
+## Matching Lightning/Codex experiment
+
+[`run_nemotron_codex.yaml`](run_nemotron_codex.yaml) uses the shared
+[57/54/406 protocol](../utils/DATA.md) and the same fixed Lightning actor settings
+as SHE. TRAIN has 57 cases; reserved validation is unused. The Designer,
+Criticizer, Cascade and Analyzer use the existing `evosafe` implementation, with
+three proposals, cascade sizes 12/57, source gates, 0.07 improvement/tolerance
+settings, conservative parent-error bounds and worst-case candidate-error bounds.
+Fresh Codex roles use GPT-6 Sol/high, web search disabled and read-only sessions.
+The optional output classifier has four bounded same-victim calls per episode.
+These are AgentDyn's existing Codex settings, not a new search variant.
+
+```bash
+python examples/agentdojo/utils/experiment.py \
+  --config examples/agentdojo/evosafe/run_nemotron_codex.yaml
+```
+
+See [shared setup and sandbox limits](../README.md#shared-she-and-evosafe-comparison).
+The runner exports `none`, `root` and `final` TEST comparisons automatically.
+Source/data/config snapshots, per-case records and adapter exports stay local
+under the ignored run's `artifacts/`. Test outcomes never feed candidate selection.
+
+## Results
+
+The first trained AgentDojo EvoSafe comparison is not yet complete. Tables will
+report clean utility, ASR, injected utility, safe completion and errors for all
+three adapters, with exact denominators. A local learner run with sandbox disabled
+is reference-only and must carry that boundary exception with its scores.

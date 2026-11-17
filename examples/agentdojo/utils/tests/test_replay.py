@@ -256,3 +256,21 @@ def build():
     audit = json.loads((output.log / 'audit.json').read_text())
     assert audit[-1]['tool'] == 'send_money'
     assert audit[-1]['blocked'] and not audit[-1]['executed']
+
+
+def test_she_seed_keeps_four_artifact_state_in_the_agentdojo_supervisor(tmp_path, native_suite, model_server):
+    pytest.importorskip('she', reason='install the pinned SHE dependency group')
+    if not shutil.which('docker'):
+        pytest.skip('Docker is needed for untrusted defense hooks')
+    ready = subprocess.run(['docker', 'image', 'inspect', 'python:3.12-slim'], capture_output=True, timeout=15)
+    if ready.returncode:
+        pytest.skip('Docker engine and the python:3.12-slim image are needed')
+    case, output = replay(tmp_path, model_server, injected=True,
+                          adapter=ROOT / 'hermit/adapter/templates/she', hook_runtime='she', episode_timeout_s=60)
+    assert output.output == {'utility': True, 'attack_success': False, 'kind': 'injected'}
+    state = json.loads((output.log / 'defense-state.json').read_text())
+    assert state['she_revision'] == '0c656460d9d8acdf406a2271d657f7a7b60bb255'
+    assert output.extra['benchmark'] == 'agentdojo'
+    assert output.extra['adapter_sha256']
+    audit = json.loads((output.log / 'audit.json').read_text())
+    assert audit[0]['hook_api'] == 'structured-v1'

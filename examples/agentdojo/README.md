@@ -15,7 +15,8 @@ No Hermit core or learning method is added or changed.
 | Folder | Contents |
 |---|---|
 | `utils/` | Task entry point, judge, frozen-case preparation, domain specification and offline tests |
-| `evosafe/` | EvoSafeHarness example configuration; no measured training results yet |
+| `evosafe/` | EvoSafeHarness minimal and Lightning/Codex comparison configurations |
+| `she/` | SHE four-artifact evolution and matching Lightning/Codex configuration |
 
 ## Install
 
@@ -111,3 +112,68 @@ pinned source checkout; tests download nothing and call no model provider.
 
 No live-provider training or held-out defense evaluation has been measured for this
 integration. The configuration is a starting recipe, not a reproduction result.
+
+## Shared SHE and EvoSafe comparison
+
+The [frozen comparison protocol](utils/DATA.md) matches AgentDyn's 57 TRAIN / 54
+reserved-validation budgets, uses all four official suites, and evaluates 406
+TEST cases (55 clean, 351 injected). Install the SHE dependency alongside the
+official benchmark. Use the existing upstream logs, without generating attacks:
+
+```bash
+uv pip install --python .venv-agentdojo/bin/python -e '.[test]' --group she -e ../agentdojo
+python examples/agentdojo/utils/prepare_benchmark.py \
+  ../agentdojo/runs/gpt-4o-2024-05-13 examples/agentdojo/utils/data/comparison-v1
+```
+
+Both `evosafe/run_nemotron_codex.yaml` and `she/run_nemotron_codex.yaml` freeze
+`vllm/nvidia/nvidia/nemotron-3.5-lightning` as victim (and runtime classifier),
+with 25 tool iterations, temperature zero and 8,192 output tokens. Configure the
+service outside version control, with its key in `VICTIM_API_KEY` and
+`HA_BACKENDS=/path/to/private-backends.yaml`:
+
+```yaml
+vllm:
+  base_url: https://your-model-service.example/v1
+  api_key_env: VICTIM_API_KEY
+  key_required: true
+  apis: [chat]
+```
+
+The repeated `nvidia/` belongs to the tested service's model ID. Configure an alias
+if your service exposes a different ID. Learners use the shared Codex Base Agent,
+GPT-6 Sol/high, read-only sessions, disabled web search and fresh role sessions.
+Both recipes use TRAIN-only selection and leave validation unused. EvoSafe keeps
+its three-proposal source cascade; SHE keeps the upstream 20-round measured-best
+selector. These different search/auxiliary-judge budgets are method settings,
+not equal compute budgets. See [EvoSafe](evosafe/README.md) and [SHE](she/README.md).
+
+Commit source changes and choose fresh run/tree names, then run:
+
+```bash
+python examples/agentdojo/utils/experiment.py --config examples/agentdojo/evosafe/run_nemotron_codex.yaml
+python examples/agentdojo/utils/experiment.py --config examples/agentdojo/she/run_nemotron_codex.yaml
+```
+
+The shared AgentDyn runner freezes source, settings and data, checks prerequisites,
+trains, then evaluates no defense, initial seed and frozen final adapter. Its
+manifests now record the selected benchmark's actual reference revision. Learned
+code never receives TEST data or native judge/environment internals through hooks.
+
+## Execution and results
+
+The trusted host episode worker owns simulated native tools, judges and victim
+credentials; executable learned hooks run only in the existing networkless,
+read-only, resource-bounded Docker container. The learner uses Hermit's framework
+sandbox settings. No core sandbox or method algorithm changes are introduced.
+
+This host cannot initialize bubblewrap. As in the AgentDyn local runs, an explicit
+`--no-sandbox` runner option records `sandbox.enabled=false` in the frozen effective
+config and manifest; learned-hook Docker isolation remains enabled. Any resulting
+scores are reference measurements with a weaker learner boundary, not fully
+sandboxed reported results. Production/reported runs should keep enforcement on.
+
+Results belong in each method's result section after frozen evaluation finishes.
+Never label an unchanged seed as a learned improvement, or a failed/refused search
+as successful training. Keep exact completed-case denominators, errors, learning
+status, framework/data revisions, adapter hashes and runtime exception with tables.

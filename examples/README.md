@@ -39,7 +39,7 @@ These show one part of the framework and report no number.
 
 | Folder | What it shows |
 |---|---|
-| [`agentdojo/`](agentdojo/) | Official AgentDojo suites with frozen injections and the shared AgentDyn replay runtime; EvoSafeHarness configuration and native offline tests, no measured training result yet |
+| [`agentdojo/`](agentdojo/) | Official AgentDojo suites with frozen injections and the shared AgentDyn replay runtime; SHE and EvoSafeHarness comparison configurations, 57/54/406 frozen protocol and native offline tests |
 | [`lean_swarm/`](lean_swarm/) | Check and deploy a finished adapter: five Codex agents prove one formal-conjectures theorem together; no training config |
 | [`docs/_examples/first_training/`](../docs/_examples/first_training/) | The whole loop offline, with a scripted learner and no model ([Quick Start](../docs/get-started/quickstart.md)) |
 | [`docs/_examples/first_model/`](../docs/_examples/first_model/) | A first training with a real model, on included data, without benchmark assets ([First real-model training](../docs/get-started/first-model.md)) |

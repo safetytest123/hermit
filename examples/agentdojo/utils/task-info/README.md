@@ -9,7 +9,7 @@ fresh defense inside a networkless Docker container. Its hooks receive the trust
 user instruction, public tool schemas and tool arguments/results, never task IDs,
 attack labels, injection payload maps, hidden environment state or judge predicates.
 Structured contexts use framework `agentdojo` and the suite name as server.
-Schemas are supplied at runtime in `ctx.metadata["available_tools"]`.
+`tools.json` records public schemas for the pinned native suites. Schemas are also supplied at runtime in `ctx.metadata["available_tools"]`.
 
 Pre-hooks may rewrite arguments or block execution. Post-hooks may filter results
 or refuse them; completed side effects remain. System prompt transforms receive
