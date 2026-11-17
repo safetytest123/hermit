@@ -20,6 +20,11 @@ numerical comparison with AgentDyn's different tasks and payloads.
   excluded before group ownership is assigned. This structural check is not a
   certification that every semantic goal/payload pairing is effective.
 
+The historical family covers nine banking, five Slack, seven travel and six
+Workspace goal IDs. The pinned native registry has 14 Workspace injection tasks;
+unrecorded goals are not synthesized. “All goals” below means all eligible
+**recorded** goals for the held-out groups, not the entire current registry.
+
 From the repository root:
 
 ```bash

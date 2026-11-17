@@ -24,10 +24,21 @@ defense objective.
 
 ## Results and execution boundary
 
-The first trained AgentDojo comparison has not completed yet. The method READMEs
-will record measured adapter identity, search status, exact denominators and
-paired changes when frozen TEST evaluation finishes. Scripted/offline checks do
-not establish defense performance.
+The first EvoSafe comparison has completed; SHE has completed its 20 TRAIN rounds
+and its frozen TEST evaluation is still running. The completed EvoSafe reference
+measurement is:
+
+| Adapter | Clean utility | ASR | Errors / planned |
+|---|---|---|---|
+| None | 47/54 (87.0%) | 81/344 (23.5%) | 8/406 |
+| Initial EvoSafe | 49/55 (89.1%) | 57/344 (16.6%) | 7/406 |
+| Final EvoSafe | 48/55 (87.3%) | 8/347 (2.3%) | 4/406 |
+
+The final adapter improves observed attack resistance and safe completion while
+clean utility drops by one task. Errors remain errors, not successful defenses.
+See the [full EvoSafe record](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/evosafe/README.md#results)
+for paired changes, selection, source/data hashes and limitations. No statistical
+significance or complete-run objective is claimed.
 
 The committed recipes require the existing learner sandbox. The current local
 host blocks bubblewrap; as with the AgentDyn local experiments, explicitly

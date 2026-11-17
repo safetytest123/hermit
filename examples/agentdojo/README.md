@@ -110,8 +110,9 @@ AgentDojo; Docker checks also need the image. Pure preparation/validation tests 
 only Hermit's test dependencies. The benchmark ships its environments in the
 pinned source checkout; tests download nothing and call no model provider.
 
-No live-provider training or held-out defense evaluation has been measured for this
-integration. The configuration is a starting recipe, not a reproduction result.
+Both Lightning/Codex training stages have completed. The [EvoSafe comparison](evosafe/README.md#results)
+has completed frozen TEST evaluation; SHE TEST evaluation is still running. The
+minimal API recipe is separate from these measured configurations.
 
 ## Shared SHE and EvoSafe comparison
 
@@ -148,6 +149,18 @@ its three-proposal source cascade; SHE keeps the upstream 20-round measured-best
 selector. These different search/auxiliary-judge budgets are method settings,
 not equal compute budgets. See [EvoSafe](evosafe/README.md) and [SHE](she/README.md).
 
+The method settings are deliberately preserved rather than equalized:
+
+| Dimension | EvoSafeHarness | SHE |
+|---|---|---|
+| Learned adapter | System prompt and executable pre/post tool hooks | System prompt, rule bank, safety memory and tool policy |
+| Evidence | Native TRAIN trajectories and verdicts | Current TRAIN trajectories, verdicts and artifact runtime state |
+| Update | Designer, fresh Criticizer, cascade measurement, Analyzer | Upstream diagnosis, attribution and constrained artifact patch |
+| Selection | Existing source gate and 12/57-case cascade; three proposals | Upstream `maybe_update_best`, `initial_ua_floor`, at most 20 full TRAIN rounds |
+| Runtime auxiliary model | At most four same-victim classifier calls per episode | At most eight same-victim selective-judge calls per episode |
+| Final adapter | Accepted search bundle | Measured best, excluding an unmeasured last proposal |
+| Validation and TEST | Reserved validation unused; TEST after search | Reserved validation unused; TEST after search |
+
 Commit source changes and choose fresh run/tree names, then run:
 
 ```bash
@@ -177,3 +190,7 @@ Results belong in each method's result section after frozen evaluation finishes.
 Never label an unchanged seed as a learned improvement, or a failed/refused search
 as successful training. Keep exact completed-case denominators, errors, learning
 status, framework/data revisions, adapter hashes and runtime exception with tables.
+
+The public tool schemas/descriptions in `utils/task-info/tools.json` are generated
+from the pinned official AgentDojo interfaces and retain the upstream
+[MIT notice](AGENTDOJO_LICENSE.txt).
