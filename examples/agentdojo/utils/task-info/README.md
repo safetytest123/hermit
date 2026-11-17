@@ -17,7 +17,13 @@ the native prompt followed by ADAPTER.md. Dict and structured APIs, per-episode
 state and the optional same-victim classifier reuse the AgentDyn implementation.
 
 Clean utility and attack success have separate denominators. Failed, timed out or
-unfinished episodes are errors, never successful defenses. The training objective
-is clean utility minus attack success rate; injected utility and secure completion
-are separate metrics. Validation confirms candidates; held-out test groups remain
-outside the search. User-task groups, including all payload variants, own a split.
+unfinished episodes are errors, never successful defenses. EvoSafe's objective
+is clean utility minus attack success rate; raw injected utility and secure
+completion are separate metrics. SHE uses its upstream TRAIN best-harness score
+and gate with safe injected-task completion. Clean UBR is unavailable in these
+native suites and must not be inferred from clean task utility.
+
+Validation confirms candidates when configured; the shared Lightning/Codex
+comparison recipes use TRAIN-only selection and leave reserved validation unused.
+Held-out test groups remain outside the search. User-task groups, including all
+payload variants, own a split.

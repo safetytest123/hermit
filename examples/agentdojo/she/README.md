@@ -119,7 +119,44 @@ as final performance.
 
 ### Frozen TEST
 
-The 406-case none/root/final TEST comparison is still running. No held-out SHE
-score is complete yet. The final table will use exact completed-case denominators,
-raw utility and safe UA separately, and all planned-case errors. Local artifacts
-remain under ignored `runs/agentdojo-she-lightning-codex-v1/artifacts/`.
+The 2026-11-17 comparison is complete: every adapter has exactly the same 406 TEST
+IDs, comprising 55 clean and 351 injected attempts from 55 held-out user groups.
+Percentages use completed-case denominators; errors are separate. Safe completion
+means native task success and attack failure together.
+
+| TEST metric | No adapter | Initial SHE | Final SHE |
+|---|---|---|---|
+| Clean task success | 50/55 (90.9%) | 50/54 (92.6%) | 48/54 (88.9%) |
+| Attack success, lower is better | 73/343 (21.3%) | 59/345 (17.1%) | 12/343 (3.5%) |
+| Raw injected task success | 250/343 (72.9%) | 265/345 (76.8%) | 268/343 (78.1%) |
+| Safe injected completion | 222/343 (64.7%) | 239/345 (69.3%) | 267/343 (77.8%) |
+| Clean / injected execution errors | 0 / 8 | 1 / 6 | 1 / 8 |
+| Total errors / planned cases | 8/406 | 7/406 | 9/406 |
+
+The final adapter reduces observed ASR and improves safe injected completion, but
+clean utility declines and execution errors increase. In paired clean cases against
+initial SHE, one improves, three regress and 50 tie; one pair has an execution
+error. Native clean utility is not an acceptance constraint; the official clean-UBR
+signal is unavailable on this task. This is an observed attack-resistance/utility tradeoff, not uniform
+improvement or a statistical-significance claim. The single pass, correlated
+injection variants and demonstrated repeat variability limit inference.
+
+No adapter has an error-free complete-run defense objective. The run status is
+`complete_with_episode_errors`; complete coverage is not complete success, and
+errors never count as blocked attacks. Initial SHE has seven nonterminal episodes.
+The no-adapter run has seven nonterminal episodes and one model response without a terminal
+answer. Final SHE has eight nonterminal episodes and one response truncated at
+the model output limit. The 25-iteration bound and strict protocol failure handling
+are identical across variants.
+
+The supervisor records 8,154.8 seconds (about 2 h 16 min). Actor concurrency is 12;
+all variants use 8,192 output tokens, temperature zero and 25 iterations. The
+selective judge has the same eight-call budget for seed and final. The fixed hook
+image is
+`python@sha256:6b25cbe6577518889d553cdd5a5da97d259348d8f6e45b527dd731caaba27a07`.
+
+Ignored local `runs/agentdojo-she-lightning-codex-v1/artifacts/` retains the source
+snapshot reference, effective configuration, native results, training selection
+records, comparison reports and root/final adapters. The reviewed reports and
+adapters are also bundled as `review-artifacts.tar.gz`; raw logs remain local.
+No generated cases, trajectories, credentials or per-run snapshots are committed.

@@ -110,9 +110,11 @@ AgentDojo; Docker checks also need the image. Pure preparation/validation tests 
 only Hermit's test dependencies. The benchmark ships its environments in the
 pinned source checkout; tests download nothing and call no model provider.
 
-Both Lightning/Codex training stages have completed. The [EvoSafe comparison](evosafe/README.md#results)
-has completed frozen TEST evaluation; SHE TEST evaluation is still running. The
-minimal API recipe is separate from these measured configurations.
+Both Lightning/Codex training and frozen TEST comparisons have completed. See
+[EvoSafe results](evosafe/README.md#results) and [SHE results](she/README.md#results)
+for exact denominators and limitations. These are reference measurements using
+the recorded local learner sandbox exception. The minimal API recipe is separate
+from these measured configurations.
 
 ## Shared SHE and EvoSafe comparison
 
@@ -186,10 +188,13 @@ config and manifest; learned-hook Docker isolation remains enabled. Any resultin
 scores are reference measurements with a weaker learner boundary, not fully
 sandboxed reported results. Production/reported runs should keep enforcement on.
 
-Results belong in each method's result section after frozen evaluation finishes.
-Never label an unchanged seed as a learned improvement, or a failed/refused search
-as successful training. Keep exact completed-case denominators, errors, learning
-status, framework/data revisions, adapter hashes and runtime exception with tables.
+The completed [EvoSafe](evosafe/README.md#results) and [SHE](she/README.md#results)
+records contain no-defense/initial/final TEST tables, native safe completion,
+errors, paired clean changes, source/data revisions and adapter provenance. Both
+show lower observed ASR alongside a clean-utility tradeoff; neither is an
+unconditional or statistical-significance claim. SHE rounds 6 and 9 measured the
+same artifact, so their best-record promotions include repeat variability.
+Training used only the 57 TRAIN cases; TEST never feeds the search.
 
 The public tool schemas/descriptions in `utils/task-info/tools.json` are generated
 from the pinned official AgentDojo interfaces and retain the upstream

@@ -24,21 +24,31 @@ defense objective.
 
 ## Results and execution boundary
 
-The first EvoSafe comparison has completed; SHE has completed its 20 TRAIN rounds
-and its frozen TEST evaluation is still running. The completed EvoSafe reference
-measurement is:
+Both 2026-11-17 Lightning/Codex comparisons completed. These are **reference
+measurements only**, using the explicitly recorded learner sandbox exception
+below. Each row covers the same 406 TEST IDs; denominators count completed
+episodes, while errors count all planned attempts. Each method retains its own
+no-adapter attempt because repeated model executions vary.
 
-| Adapter | Clean utility | ASR | Errors / planned |
+| Experiment / adapter | Clean utility | ASR | Errors / planned |
 |---|---|---|---|
-| None | 47/54 (87.0%) | 81/344 (23.5%) | 8/406 |
-| Initial EvoSafe | 49/55 (89.1%) | 57/344 (16.6%) | 7/406 |
-| Final EvoSafe | 48/55 (87.3%) | 8/347 (2.3%) | 4/406 |
+| EvoSafe / None | 47/54 (87.0%) | 81/344 (23.5%) | 8/406 |
+| EvoSafe / Initial | 49/55 (89.1%) | 57/344 (16.6%) | 7/406 |
+| EvoSafe / Final | 48/55 (87.3%) | 8/347 (2.3%) | 4/406 |
+| SHE / None | 50/55 (90.9%) | 73/343 (21.3%) | 8/406 |
+| SHE / Initial | 50/54 (92.6%) | 59/345 (17.1%) | 7/406 |
+| SHE / Final | 48/54 (88.9%) | 12/343 (3.5%) | 9/406 |
 
-The final adapter improves observed attack resistance and safe completion while
-clean utility drops by one task. Errors remain errors, not successful defenses.
-See the [full EvoSafe record](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/evosafe/README.md#results)
-for paired changes, selection, source/data hashes and limitations. No statistical
-significance or complete-run objective is claimed.
+Both final adapters reduce observed ASR and increase safe injected completion,
+while clean utility decreases against their respective initial seeds. EvoSafe
+errors decrease from 7 to 4; SHE errors increase from 7 to 9. All rows have
+execution errors, so complete-run native defense objectives remain unavailable.
+No statistical significance, uniform improvement or equal-compute ranking is
+claimed. See the full records for paired changes, exact safe-completion figures,
+source/data hashes, adapter selection and limitations:
+
+- [EvoSafe results](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/evosafe/README.md#results).
+- [SHE results](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/she/README.md#results), including the same-artifact repeat variation in TRAIN rounds 6 and 9.
 
 The committed recipes require the existing learner sandbox. The current local
 host blocks bubblewrap; as with the AgentDyn local experiments, explicitly
