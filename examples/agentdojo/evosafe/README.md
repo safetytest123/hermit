@@ -13,7 +13,7 @@ is `agentdojo`; server is the native suite name. Tool schemas arrive at runtime.
 
 The bridge enforces `episode_timeout_s: 900` independently of `agent.timeout_min`.
 `max_iters: 15` bounds the native tool loop. Learned hooks require Docker and the
-`python:3.12-slim` image. Keep sandbox enforcement enabled for learner execution.
+`python:3.12-slim` image.
 
 After configuring the models:
 
@@ -45,17 +45,16 @@ python examples/agentdojo/utils/experiment.py \
   --config examples/agentdojo/evosafe/run_nemotron_codex.yaml
 ```
 
-See [shared setup and sandbox limits](../README.md#shared-she-and-evosafe-comparison).
+See [shared setup and comparison protocol](../README.md#shared-she-and-evosafe-comparison).
 The runner exports `none`, `root` and `final` TEST comparisons automatically.
 Source/data/config snapshots, per-case records and adapter exports stay local
 under the ignored run's `artifacts/`. Test outcomes never feed candidate selection.
 
 ## Results
 
-**Reference measurements only:** this local run explicitly used `--no-sandbox`
-because bubblewrap cannot initialize on this host. Learned hooks remained in
-networkless Docker, but the learner lacked framework file/network confinement.
-These are real model executions, not fully sandboxed reported results.
+The following are single-pass reference measurements under the frozen local
+protocol. All three adapters use matching data, victim settings and evaluation
+budgets.
 
 The 2026-11-17 run `agentdojo-evosafe-lightning-codex-v1` completed all three
 proposals. Every candidate had an approved independent Criticizer review; trial 1

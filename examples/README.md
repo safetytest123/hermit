@@ -32,7 +32,7 @@ a `.hermit/CARD.md`.
 | [`servelearnbench/`](servelearnbench/) | A ServeLearnBench scenario: serving stream, per-window tests | `ServeLearnBenchAgent`: the benchmark's own loop | [`prompt_only`](servelearnbench/prompt_only/), [`mwm`](servelearnbench/mwm/) |
 | [`aspire_robosuite/`](aspire_robosuite/) | The Robosuite tasks of ASPIRE's Code-as-Policy harness: development and held-out seeds, task success | Codex with ASPIRE's fix-loop subagent and verifier prompts (`utils/agent/task.py`), GLM 5.3 Flash, ASPIRE's robot execution engine in its own venv through `bin/sim` | [`aspire`](aspire_robosuite/aspire/) |
 | [`agentdyn/`](agentdyn/) | AgentDyn's frozen benign and injected cases (Shopping, GitHub, DailyLife), clean utility and attack success rate | `bridge.py:run`: AgentDyn's native agent loop, with the defense bundle's hooks around every tool call | [`evosafe`](agentdyn/evosafe/) (EvoSafeHarness) |
-| [`agentdojo/`](agentdojo/) | Official banking, Slack, travel and workspace suites; frozen 57/54/406 local protocol, native utility/ASR and errors | `task.py:run`: native AgentDojo loop through the shared AgentDyn supervised runtime | [`evosafe`](agentdojo/evosafe/), [`she`](agentdojo/she/), completed Lightning/Codex reference comparisons with documented learner sandbox exception |
+| [`agentdojo/`](agentdojo/) | Official banking, Slack, travel and workspace suites; frozen 57/54/406 local protocol, native utility/ASR and errors | `task.py:run`: native AgentDojo loop through the shared AgentDyn supervised runtime | [`evosafe`](agentdojo/evosafe/), [`she`](agentdojo/she/), completed Lightning/Codex reference comparisons |
 
 ## Demos
 

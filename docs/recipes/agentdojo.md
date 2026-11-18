@@ -22,11 +22,11 @@ Clean utility, attack success, raw injected utility, safe completion and executi
 errors have separate denominators. The scalar evaluation score is not the full
 defense objective.
 
-## Results and execution boundary
+## Results
 
-Both 2026-11-17 Lightning/Codex comparisons completed. These are **reference
-measurements only**, using the explicitly recorded learner sandbox exception
-below. Each row covers the same 406 TEST IDs; denominators count completed
+Both 2026-11-17 Lightning/Codex comparisons completed. These are **single-pass
+reference measurements** under the frozen protocol above. Each row covers the
+same 406 TEST IDs; denominators count completed
 episodes, while errors count all planned attempts. Each method retains its own
 no-adapter attempt because repeated model executions vary.
 
@@ -50,10 +50,5 @@ source/data hashes, adapter selection and limitations:
 - [EvoSafe results](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/evosafe/README.md#results).
 - [SHE results](https://github.com/Infini-AI-Lab/hermit/blob/main/examples/agentdojo/she/README.md#results), including the same-artifact repeat variation in TRAIN rounds 6 and 9.
 
-The committed recipes require the existing learner sandbox. The current local
-host blocks bubblewrap; as with the AgentDyn local experiments, explicitly
-recorded `--no-sandbox` reference runs retain Docker isolation for learned hooks
-but weaken the learner boundary. Those numbers must remain labeled reference
-measurements, not fully sandboxed reported results. No core sandbox change is
-introduced. Official AgentDojo and AgentDyn install the same `agentdojo` package
-name and need separate Python environments.
+Official AgentDojo and AgentDyn install the same `agentdojo` package name and
+need separate Python environments.

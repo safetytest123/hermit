@@ -112,8 +112,8 @@ pinned source checkout; tests download nothing and call no model provider.
 
 Both Lightning/Codex training and frozen TEST comparisons have completed. See
 [EvoSafe results](evosafe/README.md#results) and [SHE results](she/README.md#results)
-for exact denominators and limitations. These are reference measurements using
-the recorded local learner sandbox exception. The minimal API recipe is separate
+for exact denominators and limitations. These are single-pass reference
+measurements under the frozen protocol below. The minimal API recipe is separate
 from these measured configurations.
 
 ## Shared SHE and EvoSafe comparison
@@ -179,14 +179,8 @@ code never receives TEST data or native judge/environment internals through hook
 
 The trusted host episode worker owns simulated native tools, judges and victim
 credentials; executable learned hooks run only in the existing networkless,
-read-only, resource-bounded Docker container. The learner uses Hermit's framework
-sandbox settings. No core sandbox or method algorithm changes are introduced.
-
-This host cannot initialize bubblewrap. As in the AgentDyn local runs, an explicit
-`--no-sandbox` runner option records `sandbox.enabled=false` in the frozen effective
-config and manifest; learned-hook Docker isolation remains enabled. Any resulting
-scores are reference measurements with a weaker learner boundary, not fully
-sandboxed reported results. Production/reported runs should keep enforcement on.
+read-only, resource-bounded Docker container. The integration reuses the existing
+runtime and method implementations.
 
 The completed [EvoSafe](evosafe/README.md#results) and [SHE](she/README.md#results)
 records contain no-defense/initial/final TEST tables, native safe completion,

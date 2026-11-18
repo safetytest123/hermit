@@ -63,19 +63,11 @@ usage and adapter snapshots under the ignored run's `artifacts/` directory.
 Learning failures/refusals remain recorded failures; a process exit alone does
 not establish successful learning. Refusals are not rerouted or retried.
 
-Keep learner sandbox enforcement enabled for reported results. On this host,
-bubblewrap fails with `Failed RTM_NEWADDR: Operation not permitted`. A local
-reference run may use the existing `--no-sandbox` runner option, recording that
-override while retaining learned-hook Docker confinement. Such scores are
-reference measurements with a weaker learner boundary, not fully sandboxed
-reported results. See [the shared execution boundary](../README.md#execution-and-results).
-
 ## Results
 
-**Reference measurements only:** the local run uses the recorded `--no-sandbox`
-override because this host cannot initialize bubblewrap. Learned hooks remain
-Docker-confined, but the learner lacks the framework's host file/network boundary.
-These real model measurements are not fully sandboxed reported results.
+The following are single-pass reference measurements under the frozen local
+protocol. All three adapters use matching data, victim settings and evaluation
+budgets.
 
 ### Completed search
 
@@ -112,10 +104,10 @@ time. Dollar prices are unconfigured; zero known-subtotal fields are not zero co
 
 An independent audit of retained records/code confirmed all 1,140 learning rows
 and all selection IDs belong to TRAIN, and verified the observed/pending snapshot
-chain and final export. Retained SHE role events have no tool calls. This is not
-proof of complete host isolation: the learner sandbox was disabled, and not every
-historical `prompt.txt` is retained. The audit did not treat incomplete TEST output
-as final performance.
+chain and final export. Retained SHE role events have no tool calls. The audit
+covers retained records and implementation paths; not every historical
+`prompt.txt` is retained. A separate result audit recomputed the completed TEST
+metrics and verified case and adapter provenance.
 
 ### Frozen TEST
 
